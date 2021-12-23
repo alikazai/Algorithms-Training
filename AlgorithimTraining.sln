@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubleLinkedList", "DoubleL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stack", "Stack\Stack.csproj", "{D645E49C-EC01-4A34-A504-8F1F4F691D4E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Queue", "Queue\Queue.csproj", "{92172AFA-C715-4703-B95F-D1B4FD757124}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{D645E49C-EC01-4A34-A504-8F1F4F691D4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D645E49C-EC01-4A34-A504-8F1F4F691D4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D645E49C-EC01-4A34-A504-8F1F4F691D4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92172AFA-C715-4703-B95F-D1B4FD757124}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92172AFA-C715-4703-B95F-D1B4FD757124}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92172AFA-C715-4703-B95F-D1B4FD757124}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92172AFA-C715-4703-B95F-D1B4FD757124}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
