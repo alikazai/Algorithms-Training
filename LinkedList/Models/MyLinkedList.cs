@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace LinkedList.Models
 {
     internal class MyLinkedList
     {
-        private Node? Head { get; set; }
-        private Node? Tail { get; set; }
+        private Node Head { get; set; }
+        private Node Tail { get; set; }
         private int Length { get; set; }
 
         public MyLinkedList(string value)
@@ -21,96 +23,95 @@ namespace LinkedList.Models
 
         public void Append(string value)
         {
-            //const newNode = new Node(value);
-            //this.tail.next = newNode;
-            //this.tail = newNode;
-            //this.length++;
+            Node newNode = new Node(value);
+            Tail.Next = newNode;
+            Tail = newNode;
+            Length++;
         }
 
         public void Prepend(string value)
         {
-            //const newNode = new Node(value);
-            //newNode.next = this.head;
-            //this.head = newNode;
-            //this.length++;
+            Node newNode = new Node(value);
+            newNode.Next = Head;
+            Head = newNode;
+            Length++;
         }
 
-        public void PrintList()
+        public String PrintList()
         {
-            //const array = [];
-            //let currentNode = this.head;
-            //while (currentNode !== null)
-            //{
-            //    array.push(currentNode.value);
-            //    currentNode = currentNode.next;
-            //}
+            List<string> list = new List<string>();
+            Node? currentNode = Head;
+            while (currentNode != null)
+            {
+                list.Add(currentNode.Value);
+                currentNode = currentNode.Next;
+            }
 
-            //return console.log(array);
+            return JsonSerializer.Serialize(list.ToArray());
         }
 
         public void Insert(int index, string value)
         {
-            //if (index == 0)
-            //{
-            //    return this.prepend(value);
-            //}
+            if (index == 0)
+            {
+                Prepend(value);
+                return;
+            }
 
-            //if (index >= this.length)
-            //{
-            //    return this.append(value);
-            //}
+            if(index >= Length)
+            {
 
-            //const newNode = new Node(value);
-            //const leader = this.traverseToIndex(index - 1);
-            //const holdingPointer = leader.next;
-            //leader.next = newNode;
-            //newNode.next = holdingPointer;
-            //this.length++;
+                Append(value);
+                return;
+            }
+
+            Node? newNode = new Node(value);
+            Node? leader = TraverseToIndex(index - 1);
+            Node? holdingPointer = leader.Next;
+            leader.Next = newNode;
+            newNode.Next = holdingPointer;
+            Length++;
         }
 
         public void Remove(int index)
         {
-            //if (index == 0)
-            //{
-            //    return;
-            //}
+            if (index == 0)
+                return;
 
-            //const leader = this.traverseToIndex(index - 1);
-            //const unWantedNode = leader.next;
-            //leader.next = unWantedNode.next;
-            //this.length--;
+            Node? leader = TraverseToIndex(index - 1);
+            Node? unwantedNode = leader.Next;
+            leader.Next = unwantedNode.Next;
+            Length--;
         }
 
-        private void TraverseToIndex(int index)
+        private Node? TraverseToIndex(int index)
         {
-            //let counter = 0;
-            //let currentNode = this.head;
-            //while (counter !== index)
-            //{
-            //    currentNode = currentNode.next;
-            //    counter++;
-            //}
+            int counter = 0;
+            Node? currentNode = Head;
+            while (counter != index)
+            {
+                currentNode = currentNode.Next;
+                counter++;
+            }
 
-            //return currentNode;
+            return currentNode;
         }
 
-        public void Reverse()
+        public MyLinkedList Reverse()
         {
-            //if (!this.head.next)
-            //{
-            //    return this.head;
-            //}
+            if (Head.Next == null)
+                return this;
 
-            //let currentNode = this.head;
-            //const reverseList = new LinkedList(currentNode.value);
-            //currentNode = currentNode.next;
-            //while (currentNode !== null)
-            //{
-            //    reverseList.prepend(currentNode.value);
-            //    currentNode = currentNode.next;
-            //}
+            Node? currentNode = Head;
+            MyLinkedList reverseList = new MyLinkedList(currentNode.Value);
+            currentNode = currentNode.Next;
+            while(currentNode != null)
+            {
+                reverseList.Prepend(currentNode.Value);
+                currentNode = currentNode.Next;
+            }
 
-            //return reverseList.printList();
+            return reverseList;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace LinkedList.Models
 {
     internal class Node
     {
-        public string? Value { get; set; }
+        public string Value { get; set; }
         public Node? Next { get; set; }
 
         public Node(string value)
