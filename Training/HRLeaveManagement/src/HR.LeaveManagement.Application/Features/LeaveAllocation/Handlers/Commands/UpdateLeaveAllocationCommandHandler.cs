@@ -10,22 +10,23 @@ using MediatR;
 
 namespace HR.LeaveManagement.Application.Features.LeaveAllocation.Handlers.Commands
 {
-    public class CreateLeaveAllocationCommandHandler : IRequestHandler<CreateLeaveAllocationCommand, int>
+    public class UpdateLeaveAllocationCommandHandler : IRequestHandler<UpdateLeaveAllocationCommand, Unit>
     {
         private readonly ILeaveAllocationRepository _leaveAllocationRepository;
         private readonly IMapper _mapper;
 
-        public CreateLeaveAllocationCommandHandler(ILeaveAllocationRepository leaveAllocationRepository, IMapper mapper)
+        public UpdateLeaveAllocationCommandHandler(ILeaveAllocationRepository leaveAllocationRepository, IMapper mapper)
         {
             _leaveAllocationRepository = leaveAllocationRepository;
             _mapper = mapper;
         }
 
-        public async Task<int> Handle(CreateLeaveAllocationCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateLeaveAllocationCommand request, CancellationToken cancellationToken)
         {
-            var leaveAllocation = _mapper.Map<Domain.LeaveAllocation>(request.leaveAllocationDto);
-            leaveAllocation = await _leaveAllocationRepository.Add(leaveAllocation);
-            return leaveAllocation.Id;
+            var leaveAllocation = await _leaveAllocationRepository.Get(request.leaveAllocationDto.Id);
+            _mapper.Map(request.leaveAllocationDto, leaveAllocation);
+            await _leaveAllocationRepository.Update(leaveAllocation);
+            return Unit.Value;
         }
     }
 }

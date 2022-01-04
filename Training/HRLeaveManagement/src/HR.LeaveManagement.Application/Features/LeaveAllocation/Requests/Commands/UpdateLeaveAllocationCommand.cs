@@ -8,8 +8,8 @@ using MediatR;
 
 namespace HR.LeaveManagement.Application.Features.LeaveAllocation.Requests.Commands
 {
-    public class CreateLeaveAllocationCommand : IRequest<int>
+    public class UpdateLeaveAllocationCommand : IRequest<Unit>
     {
-        public CreateLeaveAllocationDto leaveAllocationDto { get; set; }
+        public UpdateLeaveAllocationDto leaveAllocationDto { get; set; }
     }
 }
