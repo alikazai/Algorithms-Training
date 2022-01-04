@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using HR.LeaveManagement.Application.DTOs.LeaveAllocation.Validators;
 using HR.LeaveManagement.Application.Features.LeaveAllocation.Requests.Commands;
 using HR.LeaveManagement.Application.Persistence.Contracts;
 using MediatR;
@@ -23,6 +24,12 @@ namespace HR.LeaveManagement.Application.Features.LeaveAllocation.Handlers.Comma
 
         public async Task<int> Handle(CreateLeaveAllocationCommand request, CancellationToken cancellationToken)
         {
+            var validator = new CreateLeaveAllocationDtoValidator();
+            var validatorResult = await validator.ValidateAsync(request.leaveAllocationDto, cancellationToken);
+
+            if (validatorResult.IsValid == false)
+                throw new Exception();
+
             var leaveAllocation = _mapper.Map<Domain.LeaveAllocation>(request.leaveAllocationDto);
             leaveAllocation = await _leaveAllocationRepository.Add(leaveAllocation);
             return leaveAllocation.Id;
