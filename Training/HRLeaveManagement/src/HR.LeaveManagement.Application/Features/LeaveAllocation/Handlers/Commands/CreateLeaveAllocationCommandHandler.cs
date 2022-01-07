@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using HR.LeaveManagement.Application.Contracts.Persistence;
 using HR.LeaveManagement.Application.DTOs.LeaveAllocation.Validators;
 using HR.LeaveManagement.Application.Exceptions;
 using HR.LeaveManagement.Application.Features.LeaveAllocation.Requests.Commands;
-using HR.LeaveManagement.Application.Persistence.Contracts;
+using HR.LeaveManagement.Application.Responses;
 using MediatR;
 
 namespace HR.LeaveManagement.Application.Features.LeaveAllocation.Handlers.Commands
 {
-    public class CreateLeaveAllocationCommandHandler : IRequestHandler<CreateLeaveAllocationCommand, int>
+    public class CreateLeaveAllocationCommandHandler : IRequestHandler<CreateLeaveAllocationCommand, BaseCommandResponse>
     {
         private readonly ILeaveAllocationRepository _leaveAllocationRepository;
         private readonly ILeaveTypeRepository _leaveTypeRepository;
@@ -25,17 +26,29 @@ namespace HR.LeaveManagement.Application.Features.LeaveAllocation.Handlers.Comma
             _leaveTypeRepository = leaveTypeRepository;
         }
 
-        public async Task<int> Handle(CreateLeaveAllocationCommand request, CancellationToken cancellationToken)
+        public async Task<BaseCommandResponse> Handle(CreateLeaveAllocationCommand request, CancellationToken cancellationToken)
         {
+            var response = new BaseCommandResponse();
             var validator = new CreateLeaveAllocationDtoValidator(_leaveTypeRepository);
             var validatorResult = await validator.ValidateAsync(request.leaveAllocationDto, cancellationToken);
 
             if (validatorResult.IsValid == false)
-                throw new ValidationException(validatorResult);
+            {
+                response.Success = false;
+                response.Message = "Creation Failed";
+                response.Errors = validatorResult.Errors.Select(q => q.ErrorMessage).ToList();
+            }
+            else
+            {
+                var leaveAllocation = _mapper.Map<Domain.LeaveAllocation>(request.leaveAllocationDto);
+                leaveAllocation = await _leaveAllocationRepository.Add(leaveAllocation);
 
-            var leaveAllocation = _mapper.Map<Domain.LeaveAllocation>(request.leaveAllocationDto);
-            leaveAllocation = await _leaveAllocationRepository.Add(leaveAllocation);
-            return leaveAllocation.Id;
+                response.Success = true;
+                response.Message = "Creation Successful";
+                response.Id = leaveAllocation.Id;
+            }
+
+            return response;
         }
     }
 }
