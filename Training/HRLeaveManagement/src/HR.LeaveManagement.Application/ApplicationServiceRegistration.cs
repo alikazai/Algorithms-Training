@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using HR.LeaveManagement.Application.Features.LeaveTypes.Requests.Queries;
 using Microsoft.Extensions.DependencyInjection;
 using MediatR;
 
@@ -10,7 +11,6 @@ public static class ApplicationServiceRegistration
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
         services.AddMediatR(Assembly.GetExecutingAssembly());
-
         return services;
     }
 }
