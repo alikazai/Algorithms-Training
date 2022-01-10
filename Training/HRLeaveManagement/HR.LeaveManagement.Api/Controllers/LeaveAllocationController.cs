@@ -1,6 +1,7 @@
 ﻿using HR.LeaveManagement.Application.DTOs.LeaveAllocation;
 using HR.LeaveManagement.Application.Features.LeaveAllocation.Requests.Commands;
 using HR.LeaveManagement.Application.Features.LeaveAllocation.Requests.Queries;
+using HR.LeaveManagement.Application.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,7 +38,7 @@ namespace HR.LeaveManagement.Api.Controllers
 
         // POST api/<LeaveAllocationController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] CreateLeaveAllocationDto leaveAllocation)
+        public async Task<ActionResult<BaseCommandResponse>> Post([FromBody] CreateLeaveAllocationDto leaveAllocation)
         {
             var response = await _mediator.Send(new CreateLeaveAllocationCommand
                 { leaveAllocationDto = leaveAllocation });
@@ -46,7 +47,7 @@ namespace HR.LeaveManagement.Api.Controllers
 
         // PUT api/<LeaveAllocationController>
         [HttpPut]
-        public async Task<ActionResult> Put([FromBody] UpdateLeaveAllocationDto leaveAllocation)
+        public async Task<ActionResult<BaseCommandResponse>> Put([FromBody] UpdateLeaveAllocationDto leaveAllocation)
         {
             await _mediator.Send(new UpdateLeaveAllocationCommand { leaveAllocationDto = leaveAllocation });
             return NoContent();
@@ -54,7 +55,7 @@ namespace HR.LeaveManagement.Api.Controllers
 
         // DELETE api/<LeaveAllocationController>/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult<BaseCommandResponse>> Delete(int id)
         {
             await _mediator.Send(new DeleteLeaveAllocationCommand { Id = id });
             return NoContent();

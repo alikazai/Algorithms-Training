@@ -49,6 +49,7 @@ public class CreateLeaveTypeCommandHandlerTests
             CancellationToken.None);
 
         var leaveTypes = await _mockRepo.Object.GetAll();
+
         result.ShouldBeOfType<BaseCommandResponse>();
 
         leaveTypes.Count.ShouldBe(3);
@@ -58,16 +59,16 @@ public class CreateLeaveTypeCommandHandlerTests
     [Fact]
     public async Task InValid_LeaveType_Added()
     {
-        //_leaveTypeDto.DefaultDays = -1;
+        _leaveTypeDto.DefaultDays = -1;
 
-        ValidationException ex = await Should.ThrowAsync<ValidationException>
-        (async () =>
-            await _handler.Handle(new CreateLeaveTypeCommand() { leaveTypeDto = _leaveTypeDto }, CancellationToken.None)
-        );
-
+        var result = await _handler.Handle(new CreateLeaveTypeCommand() {leaveTypeDto = _leaveTypeDto},
+            CancellationToken.None);
+        
         var leaveTypes = await _mockRepo.Object.GetAll();
 
-        leaveTypes.Count.ShouldBe(3);
+        leaveTypes.Count.ShouldBe(2);
+
+        result.ShouldBeOfType<BaseCommandResponse>();
     }
 
 }

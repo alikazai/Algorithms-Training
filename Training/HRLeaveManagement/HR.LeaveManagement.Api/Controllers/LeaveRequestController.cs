@@ -1,6 +1,7 @@
 ﻿using HR.LeaveManagement.Application.DTOs.LeaveRequest;
 using HR.LeaveManagement.Application.Features.LeaveRequest.Requests.Commands;
 using HR.LeaveManagement.Application.Features.LeaveRequest.Requests.Queries;
+using HR.LeaveManagement.Application.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,7 +38,7 @@ namespace HR.LeaveManagement.Api.Controllers
 
         // POST api/<LeaveRequestController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] CreateLeaveRequestDto leaveRequest)
+        public async Task<ActionResult<BaseCommandResponse>> Post([FromBody] CreateLeaveRequestDto leaveRequest)
         {
             var response = await _mediator.Send(new CreateLeaveRequestCommand{LeaveRequestDto = leaveRequest});
             return Ok(response);
@@ -45,7 +46,7 @@ namespace HR.LeaveManagement.Api.Controllers
 
         // PUT api/<LeaveRequestController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] UpdateLeaveRequestDto leaveRequest)
+        public async Task<ActionResult<BaseCommandResponse>> Put(int id, [FromBody] UpdateLeaveRequestDto leaveRequest)
         {
             await _mediator.Send(new UpdateLeaveRequestCommand { Id = id, leaveRequestDto = leaveRequest});
             return NoContent();
@@ -53,7 +54,7 @@ namespace HR.LeaveManagement.Api.Controllers
 
         // PUT api/<LeaveRequestController>/changeApproval/5
         [HttpPut("changeapproval/{id}")]
-        public async Task<ActionResult> ChangeApproval( int id,
+        public async Task<ActionResult<BaseCommandResponse>> ChangeApproval( int id,
             [FromBody] ChangeLeaveRequestApprovalDto changeLeaveRequestApproval)
         {
             await _mediator.Send(new UpdateLeaveRequestCommand
@@ -63,7 +64,7 @@ namespace HR.LeaveManagement.Api.Controllers
 
         // DELETE api/<LeaveRequestController>/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult<BaseCommandResponse>> Delete(int id)
         {
             await _mediator.Send(new DeleteLeaveRequestCommand {Id = id});
             return NoContent();
