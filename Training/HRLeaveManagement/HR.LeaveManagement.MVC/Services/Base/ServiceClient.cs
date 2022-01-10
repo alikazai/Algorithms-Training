@@ -41,12 +41,12 @@ namespace HR.LeaveManagement.MVC.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<BaseCommandResponse> LeaveAllocationPUTAsync(UpdateLeaveAllocationDto? body);
+        System.Threading.Tasks.Task<BaseCommandResponse> LeaveAllocationPUTAsync(int? id, UpdateLeaveAllocationDto? body);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<BaseCommandResponse> LeaveAllocationPUTAsync(UpdateLeaveAllocationDto? body, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<BaseCommandResponse> LeaveAllocationPUTAsync(int? id, UpdateLeaveAllocationDto? body, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -140,12 +140,12 @@ namespace HR.LeaveManagement.MVC.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<BaseCommandResponse> LeaveTypesPUTAsync(LeaveTypeDto? body);
+        System.Threading.Tasks.Task<BaseCommandResponse> LeaveTypesPUTAsync(int? id, LeaveTypeDto? body);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<BaseCommandResponse> LeaveTypesPUTAsync(LeaveTypeDto? body, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<BaseCommandResponse> LeaveTypesPUTAsync(int? id, LeaveTypeDto? body, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -356,18 +356,23 @@ namespace HR.LeaveManagement.MVC.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<BaseCommandResponse> LeaveAllocationPUTAsync(UpdateLeaveAllocationDto? body)
+        public virtual System.Threading.Tasks.Task<BaseCommandResponse> LeaveAllocationPUTAsync(int? id, UpdateLeaveAllocationDto? body)
         {
-            return LeaveAllocationPUTAsync(body, System.Threading.CancellationToken.None);
+            return LeaveAllocationPUTAsync(id, body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<BaseCommandResponse> LeaveAllocationPUTAsync(UpdateLeaveAllocationDto? body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<BaseCommandResponse> LeaveAllocationPUTAsync(int? id, UpdateLeaveAllocationDto? body, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/LeaveAllocation");
+            urlBuilder_.Append("api/LeaveAllocation?");
+            if (id != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("id") + "=").Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            urlBuilder_.Length--;
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1209,18 +1214,23 @@ namespace HR.LeaveManagement.MVC.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<BaseCommandResponse> LeaveTypesPUTAsync(LeaveTypeDto? body)
+        public virtual System.Threading.Tasks.Task<BaseCommandResponse> LeaveTypesPUTAsync(int? id, LeaveTypeDto? body)
         {
-            return LeaveTypesPUTAsync(body, System.Threading.CancellationToken.None);
+            return LeaveTypesPUTAsync(id, body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<BaseCommandResponse> LeaveTypesPUTAsync(LeaveTypeDto? body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<BaseCommandResponse> LeaveTypesPUTAsync(int? id, LeaveTypeDto? body, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/LeaveTypes");
+            urlBuilder_.Append("api/LeaveTypes?");
+            if (id != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("id") + "=").Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            urlBuilder_.Length--;
 
             var client_ = _httpClient;
             var disposeClient_ = false;

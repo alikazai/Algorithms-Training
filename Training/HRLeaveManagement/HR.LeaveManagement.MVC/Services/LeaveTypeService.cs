@@ -67,7 +67,7 @@ public class LeaveTypeService : BaseHttpService, ILeaveTypeService
         {
             var updateLeaveType = _mapper.Map<LeaveTypeDto>(leaveType);
             AddBearerToken();
-            await _client.LeaveTypesPUTAsync(updateLeaveType);
+            await _client.LeaveTypesPUTAsync(id, updateLeaveType);
             return new Response<int>() {Success = true};
         }
         catch (ApiException ex)
