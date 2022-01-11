@@ -18,8 +18,9 @@
 
   <ItemGroup>
     <Folder Include="Contracts\Infrastructure\" />
+    <Folder Include="Contracts\Identity\" />
     <Folder Include="Exceptions\" />
-    <Folder Include="Models\" />
+    <Folder Include="Models\Identity\" />
     <Folder Include="Responses\" />
   </ItemGroup>
 
