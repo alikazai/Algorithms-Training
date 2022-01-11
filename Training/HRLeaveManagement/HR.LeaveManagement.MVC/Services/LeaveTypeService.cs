@@ -82,7 +82,7 @@ public class LeaveTypeService : BaseHttpService, ILeaveTypeService
         {
             AddBearerToken();
             await _client.LeaveTypesDELETEAsync(id);
-            return new Response<int>() { Success = true };
+            return new Response<int>() { Success = true, Data = id, Message = "", ValidationErrors = ""}; ;
         }
         catch (ApiException ex)
         {

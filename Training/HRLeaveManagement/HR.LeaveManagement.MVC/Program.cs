@@ -6,7 +6,7 @@ using HR.LeaveManagement.MVC.Services.Base;
 var builder = WebApplication.CreateBuilder(args);
 
 // Register HttpClient
-builder.Services.AddHttpClient<IClient, Client>(cl => cl.BaseAddress = new Uri("https://localhost:44348"));
+builder.Services.AddHttpClient<IClient, Client>(cl => cl.BaseAddress = new Uri("https://localhost:7145"));
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddScoped<ILeaveTypeService, LeaveTypeService>();
