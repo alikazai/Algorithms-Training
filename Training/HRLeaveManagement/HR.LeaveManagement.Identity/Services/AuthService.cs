@@ -53,7 +53,7 @@ public class AuthService : IAuthService
     {
         var existingUser = await _userManager.FindByNameAsync(request.UserName);
 
-        if (existingUser == null)
+        if (existingUser != null)
             throw new Exception($"Username '{request.UserName}' already exists.");
 
         var user = new ApplicationUser()
