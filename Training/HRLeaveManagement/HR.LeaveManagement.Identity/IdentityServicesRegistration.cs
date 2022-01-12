@@ -27,7 +27,7 @@ public static class IdentityServicesRegistration
             .AddEntityFrameworkStores<LeaveManagementIdentityDbContext>().AddDefaultTokenProviders();
 
         services.AddTransient<IAuthService, AuthService>();
-        // Add userService
+        services.AddTransient<IUserService, UserService>();
 
         services.AddAuthentication(opt =>
         {
