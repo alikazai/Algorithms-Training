@@ -8,7 +8,7 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
-
+builder.Services.AddHttpContextAccessor();
 // Add services to the container.
 // Custom Services
 builder.Services.ConfigureApplicationServices();
