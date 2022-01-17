@@ -40,7 +40,6 @@ public class LeaveAllocationRepository : GenericRepository<LeaveAllocation>, ILe
     public async Task AddAllocations(List<LeaveAllocation> allocations)
     {
         await EntityDbContext.Set<LeaveAllocation>().AddRangeAsync(allocations);
-        await EntityDbContext.SaveChangesAsync();
     }
 
     public async Task<LeaveAllocation> GetUserAllocations(string userId, int leaveTypeId)
