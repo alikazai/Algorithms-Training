@@ -17,13 +17,13 @@ public class ILeaveRequestDtoValidator : AbstractValidator<ILeaveRequestDto>
         RuleFor(p => p.EndDate)
             .GreaterThan(p => p.StartDate).WithMessage("{PropertyName} must be before {ComparisonValue}");
 
-        RuleFor(p => p.LeaveTypeId)
-            .GreaterThan(0)
-            .MustAsync(async (id, token) =>
-            {
-                var leaveTypExists = await _leaveTypeRepository.Exists(id);
-                return !leaveTypExists;
+        //RuleFor(p => p.LeaveTypeId)
+        //    .GreaterThan(0)
+        //    .MustAsync(async (id, token) =>
+        //    {
+        //        var leaveTypExists = await _leaveTypeRepository.Exists(id);
+        //        return !leaveTypExists;
 
-            }).WithMessage("{PropertyName} does not exist.");
+        //    }).WithMessage("{PropertyName} does not exist.");
     }
 }

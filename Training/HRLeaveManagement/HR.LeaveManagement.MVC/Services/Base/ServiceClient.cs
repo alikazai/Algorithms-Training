@@ -86,12 +86,12 @@ namespace HR.LeaveManagement.MVC.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<LeaveRequestDto>> LeaveRequestAllAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<LeaveRequestListDto>> LeaveRequestAllAsync(bool? isLoggedInUser);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<LeaveRequestDto>> LeaveRequestAllAsync(System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<LeaveRequestListDto>> LeaveRequestAllAsync(bool? isLoggedInUser, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -766,18 +766,23 @@ namespace HR.LeaveManagement.MVC.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<LeaveRequestDto>> LeaveRequestAllAsync()
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<LeaveRequestListDto>> LeaveRequestAllAsync(bool? isLoggedInUser)
         {
-            return LeaveRequestAllAsync(System.Threading.CancellationToken.None);
+            return LeaveRequestAllAsync(isLoggedInUser, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<LeaveRequestDto>> LeaveRequestAllAsync(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<LeaveRequestListDto>> LeaveRequestAllAsync(bool? isLoggedInUser, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/LeaveRequest");
+            urlBuilder_.Append("api/LeaveRequest?");
+            if (isLoggedInUser != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("isLoggedInUser") + "=").Append(System.Uri.EscapeDataString(ConvertToString(isLoggedInUser, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            urlBuilder_.Length--;
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -811,7 +816,7 @@ namespace HR.LeaveManagement.MVC.Services.Base
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<LeaveRequestDto>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<LeaveRequestListDto>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -1886,6 +1891,23 @@ namespace HR.LeaveManagement.MVC.Services.Base
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.5.0 (NJsonSchema v10.6.6.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class Employee
+    {
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string? Id { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("email", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string? Email { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("firstName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string? FirstName { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("lastName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string? LastName { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.5.0 (NJsonSchema v10.6.6.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class LeaveAllocationDto
     {
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -1902,6 +1924,12 @@ namespace HR.LeaveManagement.MVC.Services.Base
 
         [Newtonsoft.Json.JsonProperty("period", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Period { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("employee", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public Employee Employee { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("employeeId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string? EmployeeId { get; set; } = default!;
 
     }
 
@@ -1937,6 +1965,38 @@ namespace HR.LeaveManagement.MVC.Services.Base
 
         [Newtonsoft.Json.JsonProperty("cancelled", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public bool Cancelled { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("requestingEmployeeId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string? RequestingEmployeeId { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.5.0 (NJsonSchema v10.6.6.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class LeaveRequestListDto
+    {
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int Id { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("leaveType", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public LeaveTypeDto LeaveType { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("dateRequested", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.DateTimeOffset DateRequested { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("approved", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool? Approved { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("employee", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public Employee Employee { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("requestingEmployeeId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string? RequestingEmployeeId { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("startDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.DateTimeOffset StartDate { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("endDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.DateTimeOffset EndDate { get; set; } = default!;
 
     }
 

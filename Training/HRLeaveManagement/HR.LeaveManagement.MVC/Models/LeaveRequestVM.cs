@@ -18,6 +18,7 @@ public class LeaveRequestVM : CreateLeaveRequestVM
 
     public bool Cancelled { get; set; }
     public LeaveTypeVM LeaveType { get; set; }
+    public EmployeeVM Employee { get; set; }
 
 }
 
@@ -30,7 +31,7 @@ public class CreateLeaveRequestVM{
     [Required]
     public DateTime EndDate { get; set; }
 
-    public SelectList LeaveTypes { get; set; }
+    public SelectList? LeaveTypes { get; set; }
 
     [Display(Name = "Leave Type")]
     [Required]
@@ -39,4 +40,24 @@ public class CreateLeaveRequestVM{
     [Display(Name = "Comments")]
     [MaxLength(300)]
     public string RequestComments { get; set; }
+}
+
+public class AdminLeaveRequestViewVM
+{
+    [Display(Name ="Total Number of Requests")]
+    public int TotalRequests { get; set; }
+
+    [Display(Name = "Approved Requests")]
+    public int ApprovedRequests { get; set; }
+    [Display(Name = "Pending Requests")]
+    public int PendingRequests { get; set; }
+    [Display(Name = "Rejected Requests")]
+    public int RejectedRequests { get; set; }
+    public List<LeaveRequestVM> LeaveRequests { get; set; }
+}
+
+public class EmployeeLeaveRequestViewVM
+{
+    public List<LeaveAllocationVM> LeaveAllocation { get; set; }
+    public List<LeaveRequestVM> LeaveRequest { get; set; }
 }

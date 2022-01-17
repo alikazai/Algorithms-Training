@@ -18,6 +18,36 @@ public class LeaveRequestService : BaseHttpService, ILeaveRequestService
         _localStorageService = localStorageService;
     }
 
+    public async Task<AdminLeaveRequestViewVM> GetAdminLeaveRequestList()
+    {
+        AddBearerToken();
+        var leaveRequest = await Client.LeaveRequestAllAsync(isLoggedInUser: false);
+        var model = new AdminLeaveRequestViewVM()
+        {
+            TotalRequests = leaveRequest.Count,
+            ApprovedRequests = leaveRequest.Count(q => q.Approved == true),
+            PendingRequests = leaveRequest.Count(q => q.Approved == null),
+            RejectedRequests = leaveRequest.Count(q => q.Approved == false),
+            LeaveRequests = _mapper.Map<List<LeaveRequestVM>>(leaveRequest)
+        };
+
+        return model;
+    }
+
+    public async Task<EmployeeLeaveRequestViewVM> GetUserLeaveRequests()
+    {
+        AddBearerToken();
+        var leaveRequest = await Client.LeaveRequestAllAsync(isLoggedInUser: false);
+        var allocation = await Client.LeaveAllocationAllAsync();
+        var model = new EmployeeLeaveRequestViewVM()
+        {
+            LeaveAllocation = _mapper.Map<List<LeaveAllocationVM>>(allocation),
+            LeaveRequest = _mapper.Map<List<LeaveRequestVM>>(leaveRequest)
+        };
+
+        return model;
+    }
+
     public async Task<Response<int>> CreateLeaveRequest(CreateLeaveRequestVM leaveRequest)
     {
         try

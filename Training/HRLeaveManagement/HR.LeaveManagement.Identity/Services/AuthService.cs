@@ -1,6 +1,7 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using HR.LeaveManagement.Application.Constants;
 using HR.LeaveManagement.Application.Contracts.Identity;
 using HR.LeaveManagement.Application.Models.Identity;
 using HR.LeaveManagement.Identity.Models;
@@ -96,8 +97,8 @@ public class AuthService : IAuthService
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim(JwtRegisteredClaimNames.Email, user.Email),
-            //new Claim(CustomClaimTypes.Uid;),
+            new Claim(ClaimTypes.Email, user.Email),
+            new Claim(CustomClaimTypes.Uid, user.Id),
         }.Union(userClaims).Union(roleClaims);
 
         var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));

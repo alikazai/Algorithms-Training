@@ -23,6 +23,7 @@
     <Folder Include="Contracts\Identity\" />
     <Folder Include="Exceptions\" />
     <Folder Include="Models\Identity\" />
+    <Folder Include="Constants\" />
     <Folder Include="Responses\" />
   </ItemGroup>
 

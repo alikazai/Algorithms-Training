@@ -25,6 +25,14 @@ public class LeaveRequestRepository : GenericRepository<LeaveRequest>, ILeaveReq
         return leaveRequest;
     }
 
+    public async Task<List<LeaveRequest>> GetLeaveRequestWithDetails(string userId)
+    {
+        var leaveRequests = await EntityDbContext.Set<LeaveRequest>().Where(q => q.RequestingEmployeeId == userId)
+            .Include(q => q.LeaveType).ToListAsync();
+
+        return leaveRequests;
+    }
+
     public async Task ChangeApprovalStatus(LeaveRequest leaveRequest, bool? approvalStatus)
     {
         leaveRequest.Approved = approvalStatus;
