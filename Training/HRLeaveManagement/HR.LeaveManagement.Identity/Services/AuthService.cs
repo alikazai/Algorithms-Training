@@ -97,7 +97,7 @@ public class AuthService : IAuthService
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim(ClaimTypes.Email, user.Email),
+            new Claim(JwtRegisteredClaimNames.Email, user.Email),
             new Claim(CustomClaimTypes.Uid, user.Id),
         }.Union(userClaims).Union(roleClaims);
 

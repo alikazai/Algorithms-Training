@@ -82,7 +82,8 @@ public class LeaveRequestService : BaseHttpService, ILeaveRequestService
     {
         AddBearerToken();
         var leaveRequest = await _client.LeaveRequestGETAsync(id);
-        return _mapper.Map<LeaveRequestVM>(leaveRequest);
+        var map = _mapper.Map<LeaveRequestVM>(leaveRequest);
+        return map;
     }
 
     public Task DeleteLeaveRequest(int id)
