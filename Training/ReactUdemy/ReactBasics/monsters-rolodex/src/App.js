@@ -1,9 +1,9 @@
-import "./App.css";
-
 import { useState, useEffect } from "react";
 
 import CardList from "./components/card-list/card-list.component";
 import SearchBox from "./components/search-box/search-box.component";
+
+import "./App.css";
 
 const App = () => {
   const [searchField, setSearchField] = useState("");
@@ -15,7 +15,6 @@ const App = () => {
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((res) => res.json())
       .then((users) => setMonsters(users));
-    console.log("API");
   }, []);
 
   useEffect(() => {
