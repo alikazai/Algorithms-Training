@@ -5,11 +5,13 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkedList", "LinkedList\LinkedList.csproj", "{6362774A-763F-48BB-AB28-EE9194F892D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubleLinkedList", "DoubleLinkedList\DoubleLinkedList.csproj", "{647FE951-328F-4B2F-B6A1-DDFA592EF91F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DoubleLinkedList", "DoubleLinkedList\DoubleLinkedList.csproj", "{647FE951-328F-4B2F-B6A1-DDFA592EF91F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stack", "Stack\Stack.csproj", "{D645E49C-EC01-4A34-A504-8F1F4F691D4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stack", "Stack\Stack.csproj", "{D645E49C-EC01-4A34-A504-8F1F4F691D4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Queue", "Queue\Queue.csproj", "{92172AFA-C715-4703-B95F-D1B4FD757124}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queue", "Queue\Queue.csproj", "{92172AFA-C715-4703-B95F-D1B4FD757124}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeetCode", "LeetCode\LeetCode.csproj", "{B061149D-241E-4A56-A77A-4E60A26AA6A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{92172AFA-C715-4703-B95F-D1B4FD757124}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92172AFA-C715-4703-B95F-D1B4FD757124}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92172AFA-C715-4703-B95F-D1B4FD757124}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B061149D-241E-4A56-A77A-4E60A26AA6A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B061149D-241E-4A56-A77A-4E60A26AA6A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B061149D-241E-4A56-A77A-4E60A26AA6A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B061149D-241E-4A56-A77A-4E60A26AA6A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
