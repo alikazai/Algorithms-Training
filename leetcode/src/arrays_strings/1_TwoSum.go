@@ -15,6 +15,10 @@ func main() {
 	fmt.Println("nums = [3,3], target = 6")
 	ans3 := twoSum([]int{3, 3}, 6)
 	fmt.Printf("output = %v\n", ans3)
+
+	fmt.Println("nums = [2,5,5,11], target = 10")
+	ans4 := twoSum([]int{2, 5, 5, 11}, 10)
+	fmt.Printf("output = %v\n", ans4)
 }
 
 // Given an array of integers nums and an integer target, return
@@ -26,5 +30,20 @@ func main() {
 //You can return the answer in any order.
 
 func twoSum(nums []int, target int) []int {
+	l := 0
+
+	for r := 1; r < len(nums); r++ {
+		curr := nums[l] + nums[r]
+
+		if curr == target {
+			return []int{l, r}
+		}
+
+		if curr > target {
+			l++
+			r = 1
+		}
+	}
+
 	return []int{}
 }
